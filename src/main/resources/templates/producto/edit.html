@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PRODUCT | EDIT</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link th:href="@{/css/styleProducto.css}" rel="stylesheet">
+
+</head>
+<body>
+<!---->
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">CRUD_Relacional</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Usuarios
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/usuarios/nuevos}">Agregar</a></li>
+                        <li><a class="dropdown-item" href="#">Ver rol</a></li>
+                        <li><a class="dropdown-item" th:href="@{/usuarios}">Ver lista</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Productos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/productos/nuevos}">Agregar</a></li>
+                        <li><a class="dropdown-item" th:href="@{/productos}">Ver lista</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/categorias/nuevos}">Agregar</a></li>
+                        <li><a class="dropdown-item" th:href="@{/categorias}">Ver lista</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Marcas
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/categorias/nuevos}">xx</a></li>
+                        <li><a class="dropdown-item" th:href="@{/marcas}">Ver</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<!---->
+
+<div class="container mt-4 pt-2 justify-content-center">
+    <div class="row shadow">
+        <div class="container-fluid col-lg-8 col-md-8">
+            <h1>Editar producto</h1>
+            <div class="row card mt-2">
+                <form th:action="@{/productos/update/{id}(id=${productos.idProducto})}" th:object="${productos}" method="post">
+                    <div class="form-group">
+                        <label for="nombre" class="control-form">Nombre del producto</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" th:field="*{nombre}">
+                    </div>
+                    <div class="form-group">
+                        <label for="precio" class="control-form">Precio del producto</label>
+                        <input type="number" step="0.0.1" id="precio" name="precio" class="form-control" th:field="*{precio}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-form">Categoría:</label>
+                        <select th:field="*{categoria}" multiple class="form-control" required>
+                            <th:block th:each="categorias : ${categoriaList}">
+                                <option th:text="${categorias.nombre}" th:value="${categorias.idCategoria}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+
+                    <!--Detalles #1: Recorre a cada detalle y muestra  el detalle con su cantidad-->
+                    <th:block th:unless="${productos.idProducto == null}" th:each="detalle, status : ${productos.detalles}">
+                        <input type="hidden" name="detallesID" th:value="${detalle.id}">
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-4">Detalles #[[${status.count}]] : </label>
+
+                            <div class="col-sm-4">
+                                <input type="text" name="detallesNombre" th:value="${detalle.nombre}" class="form-control" required>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <input type="text" name="detallesValor" th:value="${detalle.valor}" class="form-control" required>
+                            </div>
+                        </div>
+                    </th:block>
+                    <!--End editar detalle producto-->
+
+                    <div class="form-group mt-2 mb-2 center">
+                        <button type="submit" name="submit" id="submit" class="btn btn-outline-success">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

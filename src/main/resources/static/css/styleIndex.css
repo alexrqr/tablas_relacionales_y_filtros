@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,500;1,400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Barlow Condensed', sans-serif;
+    list-style: none !important;
+    text-decoration: none !important;
+}
+nav{
+    z-index: 100;
+    position: fixed;
+}
+
+/*Generando espacio en los estilos dentro de las tarjetas*/
+.d-flex{
+    display: grid;
+    place-items: center;
+    place-content: center;
+}
+.d-flex a{
+    margin-left: 20px !important;
+    color: #EF5350;
+    border-bottom: 2px dotted #EF5350;
+}
