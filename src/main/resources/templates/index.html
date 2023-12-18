@@ -26,7 +26,6 @@
                         Usuarios
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/usuarios/nuevos}">Agregar</a></li>
                         <li><a class="dropdown-item" href="#">Ver rol</a></li>
                         <li><a class="dropdown-item" th:href="@{/usuarios}">Ver lista</a></li>
                     </ul>
@@ -56,6 +55,12 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" th:href="@{/categorias/nuevos}">xx</a></li>
                         <li><a class="dropdown-item" th:href="@{/marcas}">Ver</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" th:href="@{#}" data-bs-toggle="dropdown" aria-expanded="false">Tecnologia</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/tecnologia}">Ver</a></li>
                     </ul>
                 </li>
             </ul>
@@ -120,6 +125,19 @@
                 <div class="card-footer d-flex">
                     <a href="#">Agregar Otro</a>
                     <a href="#">Ver lista</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/img/otros.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Tecnología</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card-footer d-flex">
+                    <a href="#">Agregar Otro</a>
+                    <a th:href="@{/tecnologia}">Ver lista</a>
                 </div>
             </div>
         </div>

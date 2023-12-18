@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de tecnologias</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<body>
+
+    <!---->
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRUD_Relacional</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Usuarios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/usuarios/nuevos}">Agregar</a></li>
+                            <li><a class="dropdown-item" href="#">Ver rol</a></li>
+                            <li><a class="dropdown-item" th:href="@{/usuarios}">Ver lista</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/productos/nuevos}">Agregar</a></li>
+                            <li><a class="dropdown-item" th:href="@{/productos}">Ver lista</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categorías
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/categorias/nuevos}">Agregar</a></li>
+                            <li><a class="dropdown-item" th:href="@{/categorias}">Ver lista</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Marcas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/categorias/nuevos}">xx</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marcas}">Ver</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" th:href="@{#}" data-bs-toggle="dropdown" aria-expanded="false">Tecnologia</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/tecnologia}">Ver</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!---->
+
+    <div class="container mt-2">
+        <div class="row justify-content-center d-flex">
+            <div class="justify-content-center col-lg-4 col-md-4 col-sm-4">
+                <form th:action="@{/tecnologia/nuevo}" th:object="${tecnologia}" method="post">
+                    <fieldset class="card p-3">
+                        <legend>Registro de tecnologia</legend>
+                        <div>
+                            <label>Nombre</label>
+                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control">
+                        </div>
+                        <div>
+                            <label>Marca</label>
+                            <input type="text" name="marca" th:field="*{marca}" class="form-control">
+                        </div>
+                        <div>
+                            <label>Hecho en</label>
+                            <input type="text" name="hechoEn" th:field="*{hechoEn}" class="form-control">
+                        </div>
+                        <div>
+                            <label>Precio</label>
+                            <input type="text" name="precio" th:field="*{precio}" class="form-control">
+                        </div>
+                    </fieldset>
+                    <div class="form-footer mt-4 mb-4 d-flex justify-content-center">
+                        <button type="submit" name="submit" class="btn btn-outline-success w-100">Guardar Registro</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="justify-content-center col-lg-8 col-md-8 col-sm-8">
+                <div class="justify-content-center">
+                    <form th:action="@{/tecnologia}" class="d-flex">
+                        <div class="form-group d-flex">
+                            <label style="margin-right: 30px !important; font-weight: bold; border-bottom: 2px dotted;">Marca</label>
+                            <input type="text" name="palabraClave" class="form-control" th:value="${palabraClave}">
+                        </div>
+                        <div class="pl-3">
+                            <button type="submit" class="btn btn-outline-success" style="margin-left: 30px !important;">Search</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="limpiarCampos()">Clean</button>
+                        </div>
+                    </form>
+                </div>
+                <hr class="mt-2 mb-2">
+                <table class="table" id="productos">
+                    <thead class="table-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">NOMBRE</th>
+                        <th scope="col">MARCA</th>
+                        <th scope="col">HECHO EN</th>
+                        <th scope="col">PRECIO</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="tec : ${listaTecnologia}">
+                        <td th:text="${tec.idTecnologia}"></td>
+                        <td th:text="${tec.nombre}"></td>
+                        <td th:text="${tec.marca}"></td>
+                        <td th:text="${tec.hechoEn}"></td>
+                        <td th:text="${tec.precio}"></td>
+                        <!--
+                        <td>
+                            <a th:href="@{/productos/editar/{id}(id=${producto.idProducto})}" class="btn btn-outline-secondary">edit</a>
+                            <a th:href="@{/productos/delete/{id}(id=${producto.idProducto})}" class="btn btn-outline-danger">delete</a>
+                        </td>
+                        -->
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/javascript">
+    //metodo para limpiar campos de un formulario y devolver al listado general ;)
+    function limpiarCampos(){
+        window.location = "/tecnologia";
+    }
+</script>
+
+    <!--Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
